@@ -1,10 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   	<meta name="google-signin-client_id" content="YOUR_CLIENT_ID_HERE.apps.googleusercontent.com">
  <!--   <meta charset="UTF-8">  
 <meta content="301645777112-2rlc9gth0f5d4reimjcm9bf0kj7ahec0.apps.googleusercontent.com"
 	name="google-signin-client_id"> <!--  which one is which 
@@ -217,7 +213,7 @@
 			<br />
 			<h1>Login</h1>
 			<!--  Email  -->
-			<form action = "LoginDispatcher.java" method = "POST">
+			<form  name = "LoginDispatcher" action = "LoginDispatcher.java" method = "POST" onsubmit="return validateReg()">
 
 			<label for="email">Email:</label><br />
 			<br /> <input type="email" id="email" name="email" size=50 >
@@ -225,13 +221,13 @@
 			<label for="password">Password:</label><br /> <input
 				type="password" id="password" name="password" size=50> <br />
 			<br />
-			</form>
+			
 		
 			<button name = "signin" type = "submit" class="btn" style = "background: red; color: white; border: none; padding: 5px 150px; text-align: center; font-size: 13px; cursor: pointer;">
 			<i class="fa fa-sign-in"></i> Sign-in
 			</button>
 	
-
+			</form>
 
 			<div name = "gsignin" type = "submit" class="g-signin2" size=50>
 			

@@ -1,3 +1,5 @@
+package main.javafiles;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +21,7 @@ import java.sql.SQLException;
 /**
  * Servlet implementation class LoginDispatcher
  */
-@WebServlet("/auth")
+@WebServlet("/LoginDispatcher")
 public class LoginDispatcher extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
