@@ -1,0 +1,87 @@
+body {
+    color: #7F7F7F;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    margin: 0% 0%;
+}
+
+.logo a{
+	
+	font-family:lobster; 
+	color: red; 
+	margin-left:40px; 
+	font-size: 30px
+}
+.topnav a{
+	margin-top: 15px;
+	text-decoration: none;
+}
+
+.topnav-righthome{
+	float: right;
+	font-size : 15px;
+	margin-right: 30px;
+	margin-top: 15px;
+	
+}
+.topnav-rightlogin{
+	float: right;
+	font-size : 15px;
+	margin-right: 40px;
+	margin-top: 15px;
+	
+}
+
+.topnav-left{
+	float: left;
+	font-size : 15px;
+
+	
+	
+}
+
+.bottomnav-right{
+	float: right;
+	margin-right: 30px;
+	
+	
+}
+
+.button {
+		  background-color: #8b0000;
+		  border: none;
+		  color: white;
+		  padding: 15px 32px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 10px;
+		  margin: 10px 10px;
+		  cursor: pointer;
+		}
+		
+
+
+.img {
+	margin-top: 30px;
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+}
+
+
+.login-left{
+	float:left;
+	margin-top: 150px;
+	margin-left: 300px;
+
+
+}
+.login-right{
+	float: right;
+	margin-top: 100px;
+	margin-right: 300px;
+
+
+}
