@@ -1,5 +1,6 @@
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,10 +28,18 @@ public class LogoutDispatcher extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//delete the current session
-		HttpSession session = request.getSession();
-		//System.out.println("Removing the session for user: " + (String) session.getAttribute("username"));
-		session.invalidate();
-		//redirect to the homepage
+//		HttpSession session = request.getSession();
+//		
+//		session.invalidate();
+//		//redirect to the homepage
+//		response.sendRedirect("index.jsp");
+		
+		Cookie cookie1 = new Cookie("name","");
+		cookie1.setMaxAge(0);
+		Cookie cookie2 = new Cookie("email", "");
+		cookie2.setMaxAge(0);
+		response.addCookie(cookie1);
+		response.addCookie(cookie2);
 		response.sendRedirect("index.jsp");
 		return;
 		

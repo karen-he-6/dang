@@ -118,13 +118,26 @@ img {
 				<a href="index.jsp"> SalEats! </a>
 			</div>
 		</div>
+		
+		<%Cookie cookies [] = request.getCookies();
+		Boolean loggedIn = false;
+		int nameIndex = 0;
+		for(int i = 0; i < cookies.length; i++)
+			if(cookies[i].getName() != null){
+				if(cookies[i].getName().equals("name"))
+					nameIndex = i;
+		}
+		
+		
+		
+		%>
 
 		<div class="topnav-righthome">
 			<a class="active" href="index.jsp">Home</a>
 
 		</div>
 		<div class="topnav-rightlogin">
-			<a href="auth.html">Login/Register</a>
+			<a href="auth.jsp">Login/Register</a>
 		</div>
 
 		<br> <br> <br>

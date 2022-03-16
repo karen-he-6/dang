@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 
 import java.sql.*;
 import java.io.*;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +41,7 @@ public class RegisterDispatcher extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("registerEmail");
 		String username = request.getParameter("name");
-		String password = request.getParameter("registrPassword");
+		String password = request.getParameter("registerPassword");
 		String confirmation = request.getParameter("confirmPassword");
 		PrintWriter pw = response.getWriter();
 		boolean anyErrors = false;
@@ -76,7 +78,7 @@ public class RegisterDispatcher extends HttpServlet {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				conn = DriverManager.getConnection("jdbc:mysql://localhost/Program_2?user=root&password=karenhe105"); //URI to mysql
 				st = conn.createStatement();
-				rs = st.executeQuery("SELECT * FROM UserInfo WHERE email='" + email+ "'");
+				rs = st.executeQuery("SELECT u.email FROM UserInfo u WHERE u.email='" + email+ "'");
 				while(rs.next()) {
 					String tempemail = rs.getString("email");
 					if(tempemail.equals(email)) {
@@ -114,10 +116,27 @@ public class RegisterDispatcher extends HttpServlet {
 		if(success) {
 			//if the user is successfully created... create a session variable!
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("username", username);
-			//System.out.println("Session created.");
-			//works! i think at least!
+//			HttpSession session = request.getSession();
+//			session.setAttribute("username", username);
+			String name = "";
+			try {
+				name = rs.getString("name_");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String email1 = "";
+			try {
+				email1 = rs.getString("email");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Cookie cookie1 = new Cookie("name", name);
+			Cookie cookie2 = new Cookie("email", email1);
+			response.addCookie(cookie2);
+			response.addCookie(cookie1);
+			response.sendRedirect("index.jsp");
 		}
 		
 	}

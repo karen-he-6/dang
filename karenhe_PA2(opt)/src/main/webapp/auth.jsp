@@ -1,7 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
- <!--   <meta charset="UTF-8">  
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">  
 <meta content="301645777112-2rlc9gth0f5d4reimjcm9bf0kj7ahec0.apps.googleusercontent.com"
 	name="google-signin-client_id"> <!--  which one is which 
 <meta name="google-signin-client_id" content="545648236359-fpt2jfndfkhrn6dvacvmel7847nsfvni.apps.googleusercontent.com">
@@ -43,11 +46,9 @@
 			window.location.href = "/karenhe_PA2/GoogleDispatcher.java?name=" + name + "&email=" + email;
 			
 			}
-	
-	
-			
+				
 </script>
-
+<!-- 
 	<script>
 		//waiting on these functions to see what i can do with 
 			//JS to validate the login funciton
@@ -90,7 +91,7 @@
 					}	
 				}		
 			}
-		</script>
+		</script> -->
 </head>
 <style>
 .logo a {
@@ -213,7 +214,7 @@
 			<br />
 			<h1>Login</h1>
 			<!--  Email  -->
-			<form  name = "LoginDispatcher" action = "LoginDispatcher.java" method = "POST" onsubmit="return validateReg()">
+			<form action = "LoginDispatcher.java" method = "POST">
 
 			<label for="email">Email:</label><br />
 			<br /> <input type="email" id="email" name="email" size=50 >
@@ -221,13 +222,13 @@
 			<label for="password">Password:</label><br /> <input
 				type="password" id="password" name="password" size=50> <br />
 			<br />
-			
+			</form>
 		
 			<button name = "signin" type = "submit" class="btn" style = "background: red; color: white; border: none; padding: 5px 150px; text-align: center; font-size: 13px; cursor: pointer;">
 			<i class="fa fa-sign-in"></i> Sign-in
 			</button>
 	
-			</form>
+
 
 			<div name = "gsignin" type = "submit" class="g-signin2" size=50>
 			
@@ -243,10 +244,10 @@
 		<div class="login-right">
 			<h1>Register</h1>
 			
-			<form name = "RegisterDispatcher" action = "RegisterDispatcher" onsubmit="return validateReg()" >
-			
+			<form name = "RegisterDispatcher" action = "RegisterDispatcher.java" >
+			<span id="registererror" class="form-error"></span>
 			<label for="registerEmail">Email:</label><br /> <input type="email"
-				id="registerEmail" name="registerEmail" size=60  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"> <br /> <br />
+				id="registerEmail" name="registerEmail" size=60 "> <br /> <br />
 			<label for="name">Name:</label><br /> <input type="text" id="Name"
 				name="name" size=60> <br /> <br /> <label
 				for="registerPassword">Password:</label><br /> <input
@@ -269,21 +270,7 @@
 			</div>
 		
 
-		
-		
-		
-	<!-- 	<script>
-		
-			function errDisplay() {
-			  alert("Invalid email or password! Or, bad Google login. Please try again.");
-			}
-			
-			
-				
-		</script>
-		 -->
 
-	
 
 
 	 

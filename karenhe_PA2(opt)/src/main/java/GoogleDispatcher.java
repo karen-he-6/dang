@@ -27,13 +27,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		String email = request.getParameter("loginEmail");
 		System.out.print("hi " + username);
 		
-//		JDBCTest.initConnection();
-//		//out.flush();
-//		
-//
-//		if(!JDBCTest.usernameExist(username)) { // Username does not exist
-//			JDBCTest.addUser(username, email, "123", "yes");
-//		}
+
 
 	}
 @Override
