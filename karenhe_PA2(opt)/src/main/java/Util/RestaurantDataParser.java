@@ -4,7 +4,10 @@ package Util;
 //import com.google.gson.*;
 
 import java.lang.reflect.Type;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
+
 
 /**
  * A class that pretends to be the Yelp API
@@ -30,6 +33,11 @@ public class RestaurantDataParser {
         ready = true;
         //TODO get businessHelper array from json
         //TODO iterate the businessHelper array and insert every business into the DB
+        Statement st = null;
+        Connection conn = (Connection) new DatabaseConnection();
+        st = conn.createStatement();
+        st.executeUpdate("INSERT INTO Restaurant (restaurant_id, restaurant_name, details_id, ratings_id) VALUES ('"
+				+ email + "', '" + username + "', '" + password + "')");
     }
 
     public static Business getBusiness(String id) {

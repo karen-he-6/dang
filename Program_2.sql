@@ -46,12 +46,4 @@ CREATE TABLE Category (
      FOREIGN KEY (restaurant_id) REFERENCES Restaurant(restaurant_id)
 );
 
--- DROP PROCEDURE if exists GetUserName;
--- DELIMITER $$
--- CREATE PROCEDURE GetUserName (IN username varchar(50))
--- BEGIN
--- SELECT u.email, u.name_, u.pass_
--- FROM UserInfo s;
--- END $$
--- DELIMITER ;
 

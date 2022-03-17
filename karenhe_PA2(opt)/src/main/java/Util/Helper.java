@@ -47,22 +47,18 @@ public class Helper {
     	
     	String db = "jdbc:mysql://localhost/Program_2";
 		String user = "root";
-		String pwd = "karenhe105";
-		String sql = "SELECT u.name_ FROM UserInfo AS u";
-
-
+		String pwd = "karenhe105";	
+		String sql = "SELECT u.name FROM UserInfo u WHERE u.email = \"" + email + "\"";
+		
 		try (Connection conn = DriverManager.getConnection(db, user, pwd);
-			      Statement st = conn.createStatement();
-				  ResultSet rs = st.executeQuery(sql);) {
-				while (rs.next())
-					System.out.println (
-						rs.getString("email") + "\t" +
-						rs.getString("name_") + "\t" +
-						rs.getString("pass_")  );
-			} catch (SQLException sqle) {
-				System.out.println ("SQLException: " + sqle.getMessage());
-			}
-    	
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);) {
+		while (rs.next())
+			return rs.getString("name");
+	} catch (SQLException ex) {
+		System.out.println ("SQLException: " + ex.getMessage());
+	}
+	
         return null;
     }
 
@@ -101,7 +97,30 @@ public class Helper {
      */
     public static boolean emailAlreadyRegistered(String email, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //TODO
+    	String db = "jdbc:mysql://localhost/Program_2";
+		String user = "root";
+		String pwd = "karenhe105";
+		String emailquery = "SELECT * from UserInfo WHERE email = \"" + email + "\"";
+    	try(Connection conn = DriverManager.getConnection(db, user, pwd)){
+    	
+    	
+    	Statement st = conn.createStatement();
+    	ResultSet rs = st.executeQuery(emailquery); // execute the query, and get a java resultset
+
+    	// if this email already exists, we quit
+    	if(rs.absolute(1)) {
+    	     
+    	     return true;
+    	}
         return false;
+    	}catch(ServletException e)
+    	{
+    		System.out.println ("SQLException: " + e.getMessage());
+    	}
+    	catch(IOException e)
+    	{
+    		System.out.println ("SQLException: " + e.getMessage());
+    	}
+    }
     }
 }

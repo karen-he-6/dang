@@ -214,7 +214,7 @@
 			<br />
 			<h1>Login</h1>
 			<!--  Email  -->
-			<form action = "LoginDispatcher.java" method = "POST">
+			<form action = "LoginDispatcher" name = "Login" method="POST">
 
 			<label for="email">Email:</label><br />
 			<br /> <input type="email" id="email" name="email" size=50 >
@@ -222,11 +222,15 @@
 			<label for="password">Password:</label><br /> <input
 				type="password" id="password" name="password" size=50> <br />
 			<br />
-			</form>
+			
 		
 			<button name = "signin" type = "submit" class="btn" style = "background: red; color: white; border: none; padding: 5px 150px; text-align: center; font-size: 13px; cursor: pointer;">
+			
+			
 			<i class="fa fa-sign-in"></i> Sign-in
 			</button>
+			
+			</form>
 	
 
 
