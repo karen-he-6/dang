@@ -214,19 +214,24 @@
 			<br />
 			<h1>Login</h1>
 			<!--  Email  -->
-			<form action = "LoginDispatcher.java" method = "POST">
+			<form action = "LoginDispatcher" name = "Login" method="POST">
 
 			<label for="email">Email:</label><br />
-			<br /> <input type="email" id="email" name="email" size=50 >
+			<br /> 
+			<input type="email" id="email" name="email" size=50 required>
 			<br /> <br /> 
 			<label for="password">Password:</label><br /> <input
-				type="password" id="password" name="password" size=50> <br />
+				type="password" id="password" name="password" size=50 required> <br />
 			<br />
-			</form>
+			
 		
 			<button name = "signin" type = "submit" class="btn" style = "background: red; color: white; border: none; padding: 5px 150px; text-align: center; font-size: 13px; cursor: pointer;">
+			
+			
 			<i class="fa fa-sign-in"></i> Sign-in
 			</button>
+			
+			</form>
 	
 
 
@@ -244,17 +249,18 @@
 		<div class="login-right">
 			<h1>Register</h1>
 			
-			<form name = "RegisterDispatcher" action = "RegisterDispatcher.java" >
+			<form name = "RegisterDispatcher" action = "RegisterDispatcher" method="POST" >
 			<span id="registererror" class="form-error"></span>
 			<label for="registerEmail">Email:</label><br /> <input type="email"
-				id="registerEmail" name="registerEmail" size=60 "> <br /> <br />
+				id="registerEmail" name="registerEmail" size=60 " required>
+				 <br /> <br />
 			<label for="name">Name:</label><br /> <input type="text" id="Name"
-				name="name" size=60> <br /> <br /> <label
-				for="registerPassword">Password:</label><br /> <input
+				name="name" size=60 required> <br /> <br />
+				 <label for="registerPassword">Password:</label><br /> <input
 				type="password" id="registerPassword" name="registerPassword"
-				size=60> <br /> <br /> <label for="confirmPassword">Confirm
-				Password:</label><br /> <input type="password" id="confirmPassword"
-				name="confirmPassword" size=60> <br /> <br />
+				size=60 required> <br /> <br /> 
+				<label for="confirmPassword">Confirm Password:</label><br /> 
+				<input type="password" id="confirmPassword" name="confirmPassword" size=60 required> <br /> <br />
 				<input type="checkbox" name="agree" value="agree" />I have read and agreed
 			to all terms and conditions of SalEats <br /> <br />
 	
@@ -265,11 +271,24 @@
 			<!-- <button class="btn"> <i class="	fa fa-user-plus"></i> Create Account</button>
 				 -->
 			</form>
+		 <script>
+			myFunction();
+			</script> 
 			
 			
 			</div>
-		
-
+			
+			
+			
+			<%-- <% 
+			
+			if (request.getAttribute("error") != ""){
+				myFunction(error);
+			}
+			
+			
+			%>
+ --%>
 
 
 
@@ -277,6 +296,15 @@
 
 
 </body>
+
+<script>
+function myFunction() {
+	
+	String error = (String) request.getAttribute("error");
+	if (error != "") 
+	  alert(err);
+	}
+</script>
 
 
 </html>
