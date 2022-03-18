@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.io.Serial;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -44,7 +43,16 @@ public class LoginDispatcher extends HttpServlet {
 		
 		try {
 			
-			conn = (Connection) new DatabaseConnection();
+				 String db = "jdbc:mysql://localhost/Program_2";
+				 String user = "root";
+		 		 String pwd = "karenhe105";
+		 
+		        Connection con = DriverManager.getConnection(db, user, pwd);
+		        
+		        
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			conn = DriverManager.getConnection("jdbc:mysql://localhost/Program_2?user=root&password=karenhe105"); //URI to mysql
+
 			String sql = "SELECT * FROM UserInfo WHERE email=" + email + " AND pass_=" + password;
 			PreparedStatement ps = conn.prepareStatement(sql);
 //			ps.setString(1, email);
@@ -78,20 +86,15 @@ public class LoginDispatcher extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		
-		if (email.contentEquals(""))
-		{
-			error += "email missing ";
-			invalid = true;
-		}
-		if (password.contentEquals(""))
-		{
-			error += "password missing ";
-			invalid = true;
-		}
-		
 
-		if (error.equals("") && !invalid)
+		if (error.equals("") == false && invalid) {
+			request.setAttribute("error", error);
+			request.setAttribute("invalid", "true");
+			request.getRequestDispatcher("auth.jsp").forward(request, response);
+		}
+			
+	
+		else
 		{
 			request.setAttribute("invalid", "false");
 			Cookie cookie1=new Cookie("name_", name);
@@ -99,14 +102,9 @@ public class LoginDispatcher extends HttpServlet {
 			response.addCookie(cookie1);
 			response.addCookie(cookie2);
 	        //request.getRequestDispatcher("HomePage.jsp").forward(request, response);
-			response.sendRedirect("HomePage.jsp");
+			response.sendRedirect("index.jsp");
 		}
-		else
-		{
-			request.setAttribute("error", error);
-			request.setAttribute("invalid", "true");
-			request.getRequestDispatcher("auth.jsp").forward(request, response);
-		}
+		
     }
 
     /**

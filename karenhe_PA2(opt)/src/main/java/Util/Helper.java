@@ -94,9 +94,10 @@ public class Helper {
      * @return email registered or not
      * @throws ServletException
      * @throws IOException
+     * @throws SQLException 
      */
     public static boolean emailAlreadyRegistered(String email, HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
     	String db = "jdbc:mysql://localhost/Program_2";
 		String user = "root";
 		String pwd = "karenhe105";
@@ -113,14 +114,9 @@ public class Helper {
     	     return true;
     	}
         return false;
-    	}catch(ServletException e)
-    	{
-    		System.out.println ("SQLException: " + e.getMessage());
     	}
-    	catch(IOException e)
-    	{
-    		System.out.println ("SQLException: " + e.getMessage());
-    	}
+		
     }
-    }
+    
+
 }
