@@ -1,6 +1,8 @@
+//import Util.Helper;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,9 +13,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-
-//import Util.Helper;
 
 /**
  * Servlet implementation class RegisterDispatcher
@@ -39,7 +38,118 @@ public class RegisterDispatcher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //TODO
+    	 //Step 1: set the content type
+  		response.setContentType("text/html");
+  		
+  		//Step 2: get the printwriter
+  		PrintWriter out = response.getWriter();
+  		String error = "";
+  		
+  		//Step 3: generate the HTML content
+  		//	
+  		/* Register */
+      	//
+  			boolean sendBack = false;
+  			
+  			
+  			String email = request.getParameter("registerEmail");
+//  			if (!Helper.isValidEmail(email))
+//  			{
+//  				error += " Invalid Email";
+//  				request.setAttribute("error", error);
+//  				sendBack = true;
+//  			}
+  			
+      		
+  			
+  			
+      		String name = (String) request.getParameter("name");
+      		//see if name is empty
+      	
+
+//      		 if (!Helper.validName(name))
+//    		{
+//    			 error += " Invalid Name";
+//    			request.setAttribute("error", error );
+//    			sendBack = true;
+//    		}
+      		String password = (String) request.getParameter("registerPassword");
+      		String confirmPassword = (String) request.getParameter("confirmPassword");
+      		if (confirmPassword == null) confirmPassword = "";
+      		if (password == null) password = "";
+      		
+      		
+      		if (!password.equals(confirmPassword))//check password and confirm password match
+      		{
+      			error += " passwords do not match";
+      			request.setAttribute("error", error);
+      			sendBack = true;
+      		}
+      		//confirm user selected check box
+      		if (request.getParameter("agree") == null)
+      		{
+      			String noAgree = "<p>You must Agree to SalEats Terms of Service to Create an Account</p>";
+      			request.setAttribute("noAgree", noAgree);
+      			sendBack = true;
+      		}
+      		
+      		//System.out.println("About to register...");
+      		if (sendBack)
+      		{
+      			request.getRequestDispatcher("/auth.jsp").include(request, response);
+      		}else
+      		{
+      			
+      		try {
+				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				//System.out.println("could not add registered info to database");
+			}
+      	      //Getting the connection
+//      	      String mysqlUrl = "jdbc:mysql://localhost:3306/Program_2";
+//      	      Connection con;
+//			try {
+//				con = DriverManager.getConnection(mysqlUrl, "root", "karenhe105");
+//				System.out.println("Connection established: "+ con);
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		
+      			
+//      			System.out.println("Registering:");
+//      			System.out.println(userEmail);
+//      			System.out.println(name);
+//      			System.out.println(password);
+      			
+      			String db = "jdbc:mysql://localhost:3306/Program_2";
+      			String user = "root";
+      			String pwd = "karenhe105";
+      			String sql = "INSERT INTO UserInfo(email, name_, pass_)"
+      					+ "VALUES (?, ? ,?)";
+      			try (Connection conn = DriverManager.getConnection(db, user, pwd);
+      			PreparedStatement ps = conn.prepareStatement(sql);){
+      			ps.setString(1, email);
+      			ps.setString(2, name);
+      			ps.setString(3, password);
+      			ps.executeUpdate();
+      			//System.out.println(
+      			//String.format("Number of rows affected %d", row));
+      			}catch (SQLException ex) {
+      			System.out.println ("SQLException: " + ex.getMessage());}
+      			request.getRequestDispatcher("/index.jsp").include(request, response);
+      		}
+      		
+      		Cookie cookie1 = new Cookie("name", name);
+			Cookie cookie2 = new Cookie("email", email); //turn cookies from spaces
+			response.addCookie(cookie2);
+			response.addCookie(cookie1);
+			response.sendRedirect("index.jsp");
+		
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("index.jsp");
+			dispatch.forward(request, response);
+      		
     }
 
     /**
@@ -50,116 +160,9 @@ public class RegisterDispatcher extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        //doGet(request, response);
+        doGet(request, response);
     	
-      //Step 1: set the content type
-      		response.setContentType("text/html");
-      		
-      		//Step 2: get the printwriter
-      		PrintWriter out = response.getWriter();
-      		
-      		//Step 3: generate the HTML content
-      		//	
-      		/* Register */
-	      	//
-      			boolean sendBack = false;
-      			
-      			
-      			String userEmail = request.getParameter("registerEmail");
-//      			if (!Helper.isValidEmail(userEmail))
-//      			{
-//      				String emailError = "<p> Invalid Email</p>";
-//      				request.setAttribute("emailError", emailError);
-//      				sendBack = true;
-//      			}
-//      			
-          		
-      			
-      			
-	      		String name = (String) request.getParameter("name");
-	      		//see if name is empty
-	      	
-	      		
-//	      		if (name.equals(""))
-//	    		{
-//	    			String errorName = "<p>Name Field Required</p>";
-//	    			request.setAttribute("NameError", errorName);
-//	    			sendBack = true;
-//	    		}
-//	      		else if (!Helper.validName(name))
-//	    		{
-//	    			String errorName = "<p> Invalid Name</p>";
-//	    			request.setAttribute("NameError", errorName);
-//	    			sendBack = true;
-//	    		}
-	      		String password = (String) request.getParameter("registerPassword");
-	      		String confirmPassword = (String) request.getParameter("confirmPassword");
-	      		if (confirmPassword == null) confirmPassword = "";
-	      		if (password == null) password = "";
-	      		
-	      		if(password.equals("") || confirmPassword.equals(""))
-	      		{
-	      			sendBack = true;
-	      			if (password.equals(""))
-	      			{
-	      				String missingPasswordError = "<p> Password Field Requried </p>";
-	      				request.setAttribute("passwordError", missingPasswordError);
-	      			}
-	      			if (confirmPassword.equals(""))
-	      			{
-	      				String missingConfirmPasswordError = "<p> Conform Password Field Requried </p>";
-	      				request.setAttribute("confirmPasswordError", missingConfirmPasswordError);
-	      			}
-	      		}else if (!password.equals(confirmPassword))//check password and confirm password match
-	      		{
-	      			String mismatchError = "<p> Password does not match Confirm Password</p>";
-	      			request.setAttribute("mismatch", mismatchError);
-	      			sendBack = true;
-	      		}
-	      		//confirm user selected check box
-	      		if (request.getParameter("agree") == null)
-	      		{
-	      			String noAgree = "<p>You must Agree to SalEats Terms of Service to Create an Account</p>";
-	      			request.setAttribute("noAgree", noAgree);
-	      			sendBack = true;
-	      		}
-	      		
-	      		System.out.println("About to register...");
-	      		if (sendBack)
-	      		{
-	      			request.getRequestDispatcher("/auth.jsp").include(request, response);
-	      		}else
-	      		{
-	      			try
-	      			{
-	      				Class.forName("com.mysql.jdbc.Driver");
-	      			}catch (Exception e){
-	      				System.out.println("could not add registered info to database");
-	      			}
-	      			
-	      			
-	      			System.out.println("We should be registering here");
-	      			System.out.println(userEmail);
-	      			System.out.println(name);
-	      			System.out.println(password);
-	      			
-	      			String db = "jdbc:mysql://localhost/Program_2";
-	      			String user = "root";
-	      			String pwd = "karenhe105";
-	      			String sql = "INSERT INTO UserInfo(email, name_, pass_)"
-	      					+ "VALUES (?, ? ,?)";
-	      			try (Connection conn = DriverManager.getConnection(db, user, pwd);
-	      			PreparedStatement ps = conn.prepareStatement(sql);){
-	      			ps.setString(1, userEmail);
-	      			ps.setString(2, name);
-	      			ps.setString(3, password);
-	      			int row = ps.executeUpdate();
-	      			System.out.println(
-	      			String.format("Number of rows affected %d", row));
-	      			}catch (SQLException ex) {
-	      			System.out.println ("SQLException: " + ex.getMessage());}
-	      			request.getRequestDispatcher("/index.jsp").include(request, response);
-	      		}
+     
     }
 
 }

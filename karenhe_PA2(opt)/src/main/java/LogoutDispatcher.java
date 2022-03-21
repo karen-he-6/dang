@@ -40,7 +40,7 @@ public class LogoutDispatcher extends HttpServlet {
 		cookie2.setMaxAge(0);
 		response.addCookie(cookie1);
 		response.addCookie(cookie2);
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("auth.jsp");
 		return;
 		
 	}

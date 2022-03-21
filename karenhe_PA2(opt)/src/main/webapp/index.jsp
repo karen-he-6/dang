@@ -120,12 +120,11 @@ img {
 		</div>
 		
 		<%Cookie cookies [] = request.getCookies();
-		Boolean loggedIn = false;
-		int nameIndex = 0;
+		int name = 0;
 		for(int i = 0; i < cookies.length; i++)
 			if(cookies[i].getName() != null){
 				if(cookies[i].getName().equals("name"))
-					nameIndex = i;
+					name = i;
 		}
 		
 		
@@ -137,7 +136,9 @@ img {
 
 		</div>
 		<div class="topnav-rightlogin">
-			<a href="auth.jsp">Login/Register</a>
+		<form  action = "LogoutDispatcher" name = "logut" method = "POST"> 
+			<a href="auth.jsp">Logout</a>
+			</form>
 		</div>
 
 		<br> <br> <br>

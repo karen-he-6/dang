@@ -39,11 +39,11 @@ public class LoginDispatcher extends HttpServlet {
 		System.out.println(email + " " + password);
 		
 		//get an instance of JDBC driver
-		Connection conn = null;
+		
 		
 		try {
 			
-				 String db = "jdbc:mysql://localhost/Program_2";
+				 String db = "jdbc:mysql://localhost:3306/Program_2";
 				 String user = "root";
 		 		 String pwd = "karenhe105";
 		 
@@ -54,7 +54,7 @@ public class LoginDispatcher extends HttpServlet {
 //			conn = DriverManager.getConnection("jdbc:mysql://localhost/Program_2?user=root&password=karenhe105"); //URI to mysql
 
 			String sql = "SELECT * FROM UserInfo WHERE email=" + email + " AND pass_=" + password;
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 //			ps.setString(1, email);
 //			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();

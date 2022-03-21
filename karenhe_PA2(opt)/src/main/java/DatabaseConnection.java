@@ -10,8 +10,8 @@ public class DatabaseConnection {
         throws SQLException, ClassNotFoundException
     {
     	
-    	 String db = "jdbc:mysql://localhost/Program_2";
- 		String user = "root";
+    	 String db = "jdbc:mysql://localhost:3306/Program_2";
+ 		 String user = "root";
  		 String pwd = "karenhe105";
  
         Connection con = DriverManager.getConnection(db, user, pwd);
