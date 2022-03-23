@@ -183,6 +183,53 @@ img {
 		</div>
 		
 </form>
+
+<% Business restaurant = (Business) request.getAttribute("business");
+	String name = restaurant.getName();
+	String address = restaurant.getAddress();
+	String url = restaurant.getUrl();
+	String image = restaurant.getImageUrl();
+	int rating = restaurant.getRating();
+	String yelp_id = restaurant.yelp_id;
+	String phone_number = restaurant.getdisplayNumber();
+	String [] categories = restaurant.getCat();
+	String allCat = "";
+	for(int i=0; i<categories.length; i++){
+		allCat = categories[i] + " ";
+	}
+	String price = restaurant.price;%>
+<div style="padding-left: 5vw; padding-right: 5vh">	
+	<h1 style="color: grey; font-weight: normal;" id="restaurant_name"><%= name %></h1>
+</div>
+<div style="color: grey; padding-left: 5vw; padding-right: 5vw;">
+	<!-- <div style="border-bottom: 1px dashed grey; border-top: 1px dashed grey; height: 55vh" > -->
+	<h1> <%= name %></h1>
+	<table>
+		<tr style="display:block; height: 35vh; object-fit: fill">
+			<td style="object-fit: fill; width: 40vh; padding-left: 4vw;" valign="middle">
+				<div style="display: block; height: 34vh; width: 34vh; padding-top: 3vh; padding-bottom: 3vh;">
+					<a href="<%= url %>">
+					<img src="<%= image %>" style="object-fit: fill;border-radius: 30px;" width="100%" height="100%">
+					</a>
+				</div>
+			</td>
+			<td style="object-fit: fill; width: 90vh; padding-left: 7%; height: 100%; float: top;" valign="top">
+				<div style="display: block; height: 100%; float: top; padding-top: 2vh;">
+					<h3 style="font-weight: normal;" id="address">Address: <%= address%></h3>
+					<h3 style="font-weight: normal;"> <%= phone_number%></h3>
+					<h3 style="font-weight: normal;">Categories: <%= allCat %></h3>
+					<h3 style="font-weight: normal;">Price: <%= price %></h3>
+					<h3 style="font-weight: normal;">Rating: <%for(int i=0; i<rating; i++){%> <i class="fas fa-star"></i> <%} %></h3></a><br>
+				</div>
+			</td>
+		</tr>
+	</table>
+	
+	<!-- </div> -->
+</div>
+
+
+
 <body>
 <!-- TODO -->
 </body>

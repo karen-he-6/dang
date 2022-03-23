@@ -12,7 +12,9 @@ import java.io.Serial;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Servlet implementation class RegisterDispatcher
@@ -49,7 +51,7 @@ public class RegisterDispatcher extends HttpServlet {
   		//	
   		/* Register */
       	//
-  			boolean sendBack = false;
+  			//boolean sendBack = false;
   			
   			
   			String email = request.getParameter("registerEmail");
@@ -82,73 +84,83 @@ public class RegisterDispatcher extends HttpServlet {
       		if (!password.equals(confirmPassword))//check password and confirm password match
       		{
       			error += " passwords do not match";
-      			request.setAttribute("error", error);
-      			sendBack = true;
+      			request.setAttribute("regerror", error);
+      			//sendBack = true;
       		}
       		//confirm user selected check box
       		if (request.getParameter("agree") == null)
       		{
-      			String noAgree = "<p>You must Agree to SalEats Terms of Service to Create an Account</p>";
-      			request.setAttribute("noAgree", noAgree);
-      			sendBack = true;
+      			error += "<p>You must Agree to SalEats Terms of Service to Create an Account</p>";
+      			request.setAttribute("regerror", error);
+      			//sendBack = true;
       		}
       		
       		//System.out.println("About to register...");
-      		if (sendBack)
+      		if (error != "")
       		{
       			request.getRequestDispatcher("/auth.jsp").include(request, response);
       		}else
       		{
       			
-      		try {
-				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				//System.out.println("could not add registered info to database");
-			}
-      	      //Getting the connection
-//      	      String mysqlUrl = "jdbc:mysql://localhost:3306/Program_2";
-//      	      Connection con;
-//			try {
-//				con = DriverManager.getConnection(mysqlUrl, "root", "karenhe105");
-//				System.out.println("Connection established: "+ con);
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-		
-      			
-//      			System.out.println("Registering:");
-//      			System.out.println(userEmail);
-//      			System.out.println(name);
-//      			System.out.println(password);
+
       			
       			String db = "jdbc:mysql://localhost:3306/Program_2";
       			String user = "root";
       			String pwd = "karenhe105";
       			String sql = "INSERT INTO UserInfo(email, name_, pass_)"
       					+ "VALUES (?, ? ,?)";
-      			try (Connection conn = DriverManager.getConnection(db, user, pwd);
-      			PreparedStatement ps = conn.prepareStatement(sql);){
-      			ps.setString(1, email);
-      			ps.setString(2, name);
-      			ps.setString(3, password);
-      			ps.executeUpdate();
-      			//System.out.println(
-      			//String.format("Number of rows affected %d", row));
-      			}catch (SQLException ex) {
-      			System.out.println ("SQLException: " + ex.getMessage());}
-      			request.getRequestDispatcher("/index.jsp").include(request, response);
-      		}
-      		
-      		Cookie cookie1 = new Cookie("name", name);
+      			Statement st = null;
+	      		ResultSet rs = null;
+	      		Boolean exists = false;
+	      			
+	      		//check if user already exists in data base
+	      		Connection conn;
+				try {
+					conn = DriverManager.getConnection(db, user, pwd);
+					rs = st.executeQuery("SELECT u.email FROM UserInfo u WHERE u.email='" + email+ "'");
+						while(rs.next()) {
+							String tempemail = rs.getString("email");
+							if(tempemail.equals(email)) {
+								error = "This email already exists in our database.";
+								exists = true;
+							}
+						}
+				}
+				catch (SQLException ex) {
+					System.out.println ("SQLException: " + ex.getMessage());
+				}
+				
+							
+    	if (exists == false) {	
+  			try {
+  				conn = DriverManager.getConnection(db, user, pwd);
+  			
+  			
+  			PreparedStatement ps = conn.prepareStatement(sql);
+  			ps.setString(1, email);
+  			ps.setString(2, name);
+  			ps.setString(3, password);
+  			ps.executeUpdate();
+  			//System.out.println(
+  			//String.format("Number of rows affected %d", row));
+  			}catch (SQLException ex) {
+  			System.out.println ("SQLException: " + ex.getMessage());}
+  			request.getRequestDispatcher("/index.jsp").include(request, response);
+  		}
+   		
+	   		Cookie cookie1 = new Cookie("name", name);
 			Cookie cookie2 = new Cookie("email", email); //turn cookies from spaces
 			response.addCookie(cookie2);
 			response.addCookie(cookie1);
-			response.sendRedirect("index.jsp");
-		
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("index.jsp");
-			dispatch.forward(request, response);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+      	}
+				
+				
+		//	response.sendRedirect("index.jsp");
+//		
+//			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("index.jsp");
+//			dispatch.forward(request, response);
+      		
       		
     }
 

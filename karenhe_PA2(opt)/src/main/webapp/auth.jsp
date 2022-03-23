@@ -48,55 +48,11 @@
 			}
 				
 </script>
-<!-- 
-	<script>
-		//waiting on these functions to see what i can do with 
-			//JS to validate the login funciton
-			function validateLog() {
-				var xhttp = new XMLHttpRequest();
-				//getting correct responses from servlet ... need to get stuff sorted in the XML
-				xhttp.open("GET", "loginserv?username=" + document.login.username.value + "&password=" + document.login.password.value + "&requesttype=normal", true);
-				xhttp.send();
-				xhttp.onreadystatechange = function () {
-					if(this.readyState == XMLHttpRequest.DONE){
-						document.getElementById("loginerror").innerHTML = this.responseText;
-						if(this.responseText.length > 0)
-						{
-							return false;
-						}
-						else { //i don't know if this will forward sessions or if it just redirects to the home page
-							window.location = "index.jsp";
-							return true;
-						}
-					}	
-				}		
-			}
-			function validateReg() {
-				var xhttp = new XMLHttpRequest();
-				//getting correct responses from servlet ... need to get stuff sorted in the XML
-				xhttp.open("GET", "registerserv?email=" + document.signup.email.value +  "&username=" + document.signup.username.value 
-						+ "&password=" + document.signup.password.value + "&confirmation=" + document.signup.confirmation.value, true);
-				xhttp.send();
-				xhttp.onreadystatechange = function () {
-					if(this.readyState == XMLHttpRequest.DONE){
-						document.getElementById("registererror").innerHTML = this.responseText;
-						if(this.responseText.length > 0)
-						{
-							return false;
-						}
-						else {
-							window.location = "index.jsp";
-							return true;
-						}
-					}	
-				}		
-			}
-		</script> -->
-</head>
+
 <style>
 .logo a {
 	font-family: lobster;
-	color: red;
+	color: #C12A0A;
 	margin-left: 40px;
 	font-size: 30px
 }
@@ -136,6 +92,14 @@
 	font-size: 10px;
 	cursor: pointer;
 }
+.error {
+			padding: 15px;
+  			text-align: center;
+  			background: #FFC4C4;
+  			color: grey;
+  			font-size: 10px;
+  			margin-top: 56px;
+		}
 
 .signin {
 	background-color: red;
@@ -150,7 +114,7 @@
 .login-left {
 	float: left;
 	margin-top: 150px;
-	margin-left: 300px;
+	margin-left: 280px;
 }
 
 .login-right {
@@ -175,7 +139,7 @@
 <body>
 
 
-	<!-- 	<form action = "auth" method = "GET">  -->
+
 
 	<!--  HEADER -->
 	<!-- The <div> tag defines a division or a section in an HTML document. -->
@@ -217,28 +181,30 @@
 			<form action = "LoginDispatcher" name = "Login" method="POST">
 
 			<label for="email">Email:</label><br />
-			<br /> 
+				<br /> 
 			<input type="email" id="email" name="email" size=50 required>
-			<br /> <br /> 
+				<br /> <br /> 
 			<label for="password">Password:</label><br /> <input
 				type="password" id="password" name="password" size=50 required> <br />
-			<br />
-			
-		
-			<button name = "signin" type = "submit" class="btn" style = "background: red; color: white; border: none; padding: 5px 150px; text-align: center; font-size: 13px; cursor: pointer;">
-			
-			
-			<i class="fa fa-sign-in"></i> Sign-in
-			</button>
-			
+				<br />
+				<button name = "signin" type = "submit" class="btn" style = "background-color: #C12A0A; color: white; border: none; padding: 5px 150px; text-align: center; font-size: 13px; cursor: pointer;">				
+					<i class="fa fa-sign-in"></i> Sign-in
+				</button>	
 			</form>
 	
+<!--  Google Sign In -->
 
-
-			<div name = "gsignin" type = "submit" class="g-signin2" size=50>
+			<form action = "GoogleDispatcher" name = "GoogleLogin" method="POST">
+				<button name = "gsignin" type = "submit" class="btn" style = "background-color: lightblue; color: white; border: none; padding: 5px 112px; text-align: center; font-size: 13px; cursor: pointer;">
+					<i class="fa fa-google"></i> Sign In With Google
+				</button>
+			</form>
 			
-		</div>
-			<br /> <br />
+			
+
+
+			<br />
+			<br />
 			
 
 
@@ -266,30 +232,16 @@
 	
 			
 			
-			<button name = "create" type = "submit" style = "background: red; color: white; border: none; padding: 5px 150px; text-align: center; font-size: 13px; cursor: pointer;"> <i class="	fa fa-user-plus"></i> Create Account </button>
+			<button name = "create" type = "submit" style = "background-color: #C12A0A; color: white; border: none; padding: 5px 150px; text-align: center; font-size: 13px; cursor: pointer;"> <i class="	fa fa-user-plus"></i> Create Account </button>
 			
-			<!-- <button class="btn"> <i class="	fa fa-user-plus"></i> Create Account</button>
-				 -->
+			
 			</form>
-		 <script>
-			myFunction();
-			</script> 
-			
 			
 			</div>
 			
+	
 			
 			
-			<%-- <% 
-			
-			if (request.getAttribute("error") != ""){
-				myFunction(error);
-			}
-			
-			
-			%>
- --%>
-
 
 
 	 
@@ -298,12 +250,22 @@
 </body>
 
 <script>
-function myFunction() {
-	
-	String error = (String) request.getAttribute("error");
-	if (error != "") 
-	  alert(err);
-	}
+<%//check errors, display error message at top
+if(request.getAttribute("error") != null)
+{
+%>
+	<div class="error">
+		Invalid email or password. Or, bad Google login. Please try again.
+	</div>
+<% } %>
+<%//check errors, display error message at top
+if(request.getAttribute("regerror") != null)
+{
+%>
+	<div class="error">
+		Invalid entries. Please try again.
+	</div>
+<% } %>
 </script>
 
 

@@ -13,11 +13,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
+
 public class BusinessHelper {
 	
 	
 
 	private static ArrayList<Business> all;
+	  HashMap<String, Business> BusinessMap = new HashMap<>();
 	//private static ArrayList<TimefallShelter> shelters;
   
     static boolean format = false;
@@ -39,26 +41,14 @@ public class BusinessHelper {
 		     
 //		
 		 
-		    HashMap<Integer, Business> BusinessMap = new HashMap<>();
+		  
 //		    
 		   for(int i = 0; i <all.size(); i++) {
 			  
-//			   if (shelterMap.containsKey(shelters.get(i)) == true) { //check if there are no duplicates
-//				  throw new IOException();
-//			  }
-//			
-//			   if(shelters.get(i).getPhone().replaceAll(" ", "").matches(phoneMask) == false) {
-//					throw new IllegalArgumentException();
-//				}
-//			   if(shelters.get(i).getGuid().replaceAll(" ", "").matches(guidMask) == false) {
-//					throw new IllegalArgumentException();
-//				}
-//			   if(shelters.get(i).getChiralFrequency() < 0) {
-//				   throw new IllegalArgumentException();
-//			   }
 		   Business temp = all.get(i);
 //			
-			  BusinessMap.put(i, temp);
+			  BusinessMap.put(temp.getID(), temp);
+			  System.out.println(temp.getID());
 			   
 		   }
 
@@ -87,6 +77,7 @@ public class BusinessHelper {
 	
 		solution.readFile("restaurant_data.json");
 	
+	//	System.out.println(BusinessMap.);
 		
 	}
 	

@@ -108,18 +108,33 @@ img {
 	margin-top: 100px;
 	margin-right: 300px;
 }
+
+/* 
+	ul {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		border-bottom-style: solid;
+	} */
+	
+.liName {
+		font-size: 16px;
+		margin-top: 1%;
+		margin-left: 1%;
+		float: left;
+}
+	
 </style>
 
 <body>
 	<div class="topnav">
 
 		<div class="topnav-left">
-			<div class="logo">
-				<a href="index.jsp"> SalEats! </a>
-			</div>
-		</div>
-		
-		<%Cookie cookies [] = request.getCookies();
+			<%Cookie cookies [] = request.getCookies();
+		Boolean loggedin=false;
 		int name = 0;
 		for(int i = 0; i < cookies.length; i++)
 			if(cookies[i].getName() != null){
@@ -127,10 +142,40 @@ img {
 					name = i;
 		}
 		
-		
-		
 		%>
+			<div class="logo">
+				<a href="index.jsp"> SalEats! </a>
+				<%if(name!=0 && cookies.length > 1 && cookies[name].getValue() != null) { %>
+			   <span> Hi, <%= cookies[name].getValue()%> </span>
+			  <%loggedin=true; } %>
+				
+			</div>
 
+		
+		
+		</div>
+		
+		
+		
+	  
+	  
+	  <%if(!loggedin) { %>
+	  <div class="topnav-rightlogin">
+	  	<a class="active" href="auth.jsp">Login/Register</a>
+	  	</div>
+	  <%} else { %>
+	  <div class="topnav-rightlogin">
+	  <form  action = "LogoutDispatcher" name = "logut" method = "POST"> 
+	  	<a class="active" href="LogoutDispatcher">Logout</a>
+	  	</form>
+	  	</div>
+	  <%} %>
+	  <div class="topnav-righthome">
+	  <a class="active" href="index.jsp">Home</a>
+	  </div>
+	
+	
+<!-- 
 		<div class="topnav-righthome">
 			<a class="active" href="index.jsp">Home</a>
 
@@ -139,7 +184,7 @@ img {
 		<form  action = "LogoutDispatcher" name = "logut" method = "POST"> 
 			<a href="auth.jsp">Logout</a>
 			</form>
-		</div>
+		</div> -->
 
 		<br> <br> <br>
 		<!--  HORIZONTAL LINE -->

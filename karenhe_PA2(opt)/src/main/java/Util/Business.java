@@ -1,131 +1,201 @@
 package Util;
 
+import java.util.List;
+import javax.annotation.Generated;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * The class used to model a business
  */
-public class Business {
-    
-	
-	private String id, alias, name, image_url, price;
-	private int reviewcount;
-	private boolean isClosed;
-	private double rating;
-	private double [] coordinates; //how to parse out in here?
-	private String [] categories, location, transactions;
+
 	
 
-    public Business(String id, String name, String image_url, String price,
-    		int reviewcount, boolean isClosed, double rating, double [] coordinates, String [] categories, String [] location, String [] transactions) {
-        //TODO Initialization code
-    	
-    	this.id = id;
-    	this.alias = alias;
-    	this.name = name;
-    	this.image_url = image_url;
-    	this.price = price;
-    	this.reviewcount = reviewcount;
-    	this.isClosed = isClosed;
-    	this.rating = rating;
-    	this.coordinates = coordinates;
-    	this.categories = categories;
-    	this.location = location;
-    	this.transactions = transactions;
-    	
-    	
-    }
+	@Generated("jsonschema2pojo")
+	public class Business {
 
-    
-    //TODO Add Getters (No Setters as the business does not change in our assignment once constructed)
-//    "id": "SLxKy00itrk-ta8r8zCzTA",
-//    "alias": "easy-street-burgers-los-angeles",
-//    "name": "Easy Street Burgers",
-//    "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/kkJ9A3hFzwOPLYHxqkrrrQ/o.jpg",
-//    "is_closed": false,
-//    "url": "https://www.yelp.com/biz/easy-street-burgers-los-angeles?adjust_creative=TO1fKtEL34_ZeUgitrVpAQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TO1fKtEL34_ZeUgitrVpAQ",
-//    "review_count": 206,
-//    "categories": [
-//                   {
-//                       "alias": "burgers",
-//                       "title": "Burgers"
-//                   }
-//               ],
-//               "rating": 4.5,
-//               "coordinates": {
-//                   "latitude": 34.088796,
-//                   "longitude": -118.308573
-//               },
-//               "transactions": [
-//                   "delivery"
-//               ],
-//               "price": "$$",
-//               "location": {
-//                   "address1": "1000 N Western Ave",
-//                   "address2": "",
-//                   "address3": null,
-//                   "city": "Los Angeles",
-//                   "zip_code": "90029",
-//                   "country": "US",
-//                   "state": "CA",
-//                   "display_address": [
-//                       "1000 N Western Ave",
-//                       "Los Angeles, CA 90029"
-//                   ]
-//    
-    
-    public String getID() {
-    	
-    	return this.id;
-    }
-    
-	 public String getAlias() {
-	    	
-	    	return this.alias;
-	    }
-	 
-	 public String getName() {
-	    	
-	    	return this.name;
-	    }
-	 
-	 public String getImageURL() {
-	    	
-	    	return this.image_url;
-	    }
-	 
-	 public boolean getIsClosed() {
-		 
-		 return this.isClosed;
-	 }
-	 
-	 
-	 public int getReviewCount() {
-		 
-		 return this.reviewcount;
-	 }
-	 
-	public double getRating() {
-			 
-			 return this.rating;
-		 }
-	
+	@SerializedName("id")
+	@Expose
+	private String id;
+	@SerializedName("alias")
+	@Expose
+	private String alias;
+	@SerializedName("name")
+	@Expose
+	private String name;
+	@SerializedName("image_url")
+	@Expose
+	private String imageUrl;
+	@SerializedName("is_closed")
+	@Expose
+	private Boolean isClosed;
+	@SerializedName("url")
+	@Expose
+	private String url;
+	@SerializedName("review_count")
+	@Expose
+	private Integer reviewCount;
+	@SerializedName("categories")
+	@Expose
+	private List<Category> categories = null;
+	@SerializedName("rating")
+	@Expose
+	private Double rating;
+	@SerializedName("coordinates")
+	@Expose
+	private Coordinates coordinates;
+	@SerializedName("transactions")
+	@Expose
+	private List<String> transactions = null;
+	@SerializedName("price")
+	@Expose
+	private String price;
+	@SerializedName("location")
+	@Expose
+	private Location location;
+	@SerializedName("phone")
+	@Expose
+	private String phone;
+	@SerializedName("display_phone")
+	@Expose
+	private String displayPhone;
+	@SerializedName("distance")
+	@Expose
+	private Double distance;
+
+	public String getId() {
+	return id;
+	}
+
+	public void setId(String id) {
+	this.id = id;
+	}
+
+	public String getAlias() {
+	return alias;
+	}
+
+	public void setAlias(String alias) {
+	this.alias = alias;
+	}
+
+	public String getName() {
+	return name;
+	}
+
+	public void setName(String name) {
+	this.name = name;
+	}
+
+	public String getImageUrl() {
+	return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+	this.imageUrl = imageUrl;
+	}
+
+	public Boolean getIsClosed() {
+	return isClosed;
+	}
+
+	public void setIsClosed(Boolean isClosed) {
+	this.isClosed = isClosed;
+	}
+
+	public String getUrl() {
+	return url;
+	}
+
+	public void setUrl(String url) {
+	this.url = url;
+	}
+
+	public Integer getReviewCount() {
+	return reviewCount;
+	}
+
+	public void setReviewCount(Integer reviewCount) {
+	this.reviewCount = reviewCount;
+	}
+
+	public List<Category> getCategories() {
+	return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+	this.categories = categories;
+	}
+
+	public Double getRating() {
+	return rating;
+	}
+
+	public void setRating(Double rating) {
+	this.rating = rating;
+	}
+
+	public Coordinates getCoordinates() {
+	return coordinates;
+	}
+
+	public void setCoordinates(Coordinates coordinates) {
+	this.coordinates = coordinates;
+	}
+
+	public List<String> getTransactions() {
+	return transactions;
+	}
+
+	public void setTransactions(List<String> transactions) {
+	this.transactions = transactions;
+	}
+
 	public String getPrice() {
-		 
-		 return this.price;
-	 }
-	
-	public double [] getCoord() {
-		
-		return this.coordinates;
+	return price;
 	}
-	
-	public String [] getLoc() {
-		
-		return this.location;
-	}
-	public String [] getTrans() {
-			
-			return this.transactions;
-		}
 
+	public void setPrice(String price) {
+	this.price = price;
+	}
+
+	public Location getLocation() {
+	return location;
+	}
+
+	public void setLocation(Location location) {
+	this.location = location;
+	}
+
+	public String getPhone() {
+	return phone;
+	}
+
+	public void setPhone(String phone) {
+	this.phone = phone;
+	}
+
+	public String getDisplayPhone() {
+	return displayPhone;
+	}
+
+	public void setDisplayPhone(String displayPhone) {
+	this.displayPhone = displayPhone;
+	}
+
+	public Double getDistance() {
+	return distance;
+	}
+
+	public void setDistance(Double distance) {
+	this.distance = distance;
+	}
+
+	
+	
+	
 }
+	
+	
+
 

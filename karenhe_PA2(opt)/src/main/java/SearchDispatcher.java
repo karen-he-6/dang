@@ -5,8 +5,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serial;
+import java.nio.charset.StandardCharsets;
+
+import Util.RestaurantDataParser;
 
 /**
  * Servlet implementation class SearchDispatcher
@@ -31,6 +39,17 @@ public class SearchDispatcher extends HttpServlet {
         ServletContext servletContext = getServletContext();
         // TODO get json file as stream, Initialize FakeYelpAPI by calling its initalize
         // method
+        InputStream stream = servletContext.getResourceAsStream("restaurant_data.json");
+        String json = null;
+        try {
+        	json = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+        }
+        catch(IOException e){
+        	System.out.println("no stream");
+        }
+        
+       // RestaurantDataParser parsed = new  RestaurantDataParser();
+        //parsed.Init(json);
     }
 
     /**
